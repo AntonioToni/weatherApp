@@ -1,0 +1,22 @@
+#root {
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+}
+
+.locateButton{
+  display: flex;
+  align-self: flex-start;
+}
+
+.alignCenter{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.currentWeather{
+  text-align: center;
+}
