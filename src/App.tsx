@@ -4,9 +4,10 @@ import Fab from '@mui/material/Fab';
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Weather } from './classes/Weather';
 
 function App() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(new Weather);
 
   function getLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -14,6 +15,13 @@ function App() {
       console.log("Longitude is :", position.coords.longitude);
       localStorage.setItem("Latitude", JSON.stringify(position.coords.latitude));
       localStorage.setItem("Longitude", JSON.stringify(position.coords.longitude));
+
+      // We can efficiently update the state using spread syntax
+      setData({
+        ...data,
+        longitude: position.coords.longitude,
+        latitude: position.coords.latitude,
+      })
     });
   }
 
@@ -50,10 +58,10 @@ function App() {
           <LocationSearchingIcon/>
         </Fab>
         <div className='currentWeather'>
-          <h1>{data.name}</h1>
-          <h1>{}°C</h1>
-          <h2>{}</h2>
-          <h2>H:13°C L:4°C</h2>
+          <h1>{data.cityName}</h1>
+          <h1>{data.currentTemp}°C</h1>
+          <h2>Coords: {data.longitude}, {data.latitude}</h2>
+          <h2>H:{data.highTemp}°C L:{data.lowTemp}°C</h2>
         </div>
       </div>
     </>
