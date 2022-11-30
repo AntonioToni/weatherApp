@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# This will protect you from pushing sensitive info to github eg. API key
+src/env.json
