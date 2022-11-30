@@ -1,19 +1,25 @@
 export class Weather {
-    public cityName: string;
-    public description: string;
-    public currentTemp: number;
-    public highTemp: number;
-    public lowTemp: number;
-    public latitude: number;
-    public longitude: number;
+  public name: string;
+  public main : { 
+    temp : number,
+    feels_like : number,
+    temp_min : number,
+    temp_max : number,
+    pressure : number,
+    humidity : number
+  }
+  public weather : Array<{description : string}>
 
-    public constructor() {
-        this.cityName = "";
-        this.description = "";
-        this.currentTemp = 0;
-        this.highTemp = 0;
-        this.lowTemp = 0;
-        this.latitude = 0;
-        this.longitude = 0;
-    }
+  public constructor() {
+    this.name = "";
+    this.main = { 
+      temp : 0,
+      feels_like : 0,
+      temp_min : 0,
+      temp_max : 0,
+      pressure : 0,
+      humidity : 0
+    };
+    this.weather = [{description : ''}]
+  }
 }
