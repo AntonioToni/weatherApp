@@ -9,8 +9,8 @@ import { CurrentWeather } from './components/currentWeather';
 
 function App() {
   const [data, setData] = useState(new Weather);
-  const [lat, setLat] = useState(parseFloat(JSON.parse(localStorage.getItem("Latitude") || '0')));
-  const [lon, setLon] = useState(parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0')));
+  let lat = parseFloat(JSON.parse(localStorage.getItem("Latitude") || '0'));
+  let lon = parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0'));
 
   function getLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -18,8 +18,9 @@ function App() {
       console.log("Longitude is :", position.coords.longitude);
       localStorage.setItem("Latitude", JSON.stringify(position.coords.latitude));
       localStorage.setItem("Longitude", JSON.stringify(position.coords.longitude));
-      setLat(parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0')));
-      setLon(parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0')));
+      lat = position.coords.latitude;
+      lon = position.coords.longitude;
+      console.log(lat, lon)
       searchLocation();
     });
   }
@@ -28,10 +29,11 @@ function App() {
     getLocation();
   }
 
-  const url= `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&id=524901&appid=${env.apiKey}&units=metric`
-
   const searchLocation = () => {
+    let url= `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&id=524901&appid=${env.apiKey}&units=metric`
+    console.log(url);
     axios.get(url).then((response) => {
+      console.log(url);
       setData(response.data)
       console.log(response.data)
     })
