@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Weather } from './classes/Weather';
 import env from './env.json';
-import { CurrentWeather } from './components/currentWeather';
+import { BasicWeather } from './components/basicWeather';
+import { DetailedWeather } from './components/detailedWeather';
 
 function App() {
   const [data, setData] = useState(new Weather);
@@ -20,8 +21,7 @@ function App() {
       localStorage.setItem("Longitude", JSON.stringify(position.coords.longitude));
       lat = position.coords.latitude;
       lon = position.coords.longitude;
-      console.log(lat, lon)
-      searchLocation();
+      searchPosWeather();
     });
   }
 
@@ -29,11 +29,9 @@ function App() {
     getLocation();
   }
 
-  const searchLocation = () => {
+  const searchPosWeather = () => {
     let url= `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&id=524901&appid=${env.apiKey}&units=metric`
-    console.log(url);
     axios.get(url).then((response) => {
-      console.log(url);
       setData(response.data)
       console.log(response.data)
     })
@@ -41,7 +39,7 @@ function App() {
 
   useEffect(() => {
     console.log("Loading data...");
-    searchLocation();
+    searchPosWeather();
   }, []);
 
   return (
@@ -50,7 +48,8 @@ function App() {
         <Fab className='locateButton' onClick={getLocation}>
           <LocationSearchingIcon/>
         </Fab>
-        <CurrentWeather data = {data}/>
+        <BasicWeather data = {data}/>
+        <DetailedWeather data = {data}/>
       </div>
     </>
   )

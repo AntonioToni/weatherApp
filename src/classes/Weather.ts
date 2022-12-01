@@ -8,10 +8,21 @@ export class Weather {
     pressure : number,
     humidity : number
   }
-  public weather : Array<{description : string}>
+  public visibility : number;
+  public weather : Array<{
+    description : string
+  }>
+  public wind : {
+    speed : number,
+    deg: number
+  }
+  public sys : {
+    sunrise : number,
+    sunset : number
+  }
 
   public constructor() {
-    this.name = "";
+    this.name = "City";
     this.main = { 
       temp : 0,
       feels_like : 0,
@@ -20,6 +31,17 @@ export class Weather {
       pressure : 0,
       humidity : 0
     };
-    this.weather = [{description : ''}]
+    this.visibility = 0;
+    this.weather = [{
+      description : 'Overcast clouds'
+    }]
+    this.wind = {
+      speed : 0,
+      deg : 0
+    }
+    this.sys = {
+      sunrise : 0,
+      sunset : 0
+    }
   }
 }

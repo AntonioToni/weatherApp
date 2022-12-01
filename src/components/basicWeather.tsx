@@ -1,7 +1,7 @@
 import react from 'react';
 import { Weather } from '../classes/Weather';
 
-export function CurrentWeather(props: {
+export function BasicWeather(props: {
   data : Weather}
   ) {
   return(
