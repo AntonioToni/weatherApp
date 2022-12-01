@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Weather } from './classes/Weather';
 import env from './env.json';
 import { BasicWeather } from './components/basicWeather';
+import { DetailedWeather } from './components/detailedWeather';
 
 function App() {
   const [data, setData] = useState(new Weather);
@@ -48,6 +49,7 @@ function App() {
           <LocationSearchingIcon/>
         </Fab>
         <BasicWeather data = {data}/>
+        <DetailedWeather data = {data}/>
       </div>
     </>
   )
