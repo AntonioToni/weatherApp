@@ -17,43 +17,31 @@ export function DetailedWeather(props: {
     <div className='detailedWeather'>
       <div className='row'>
         <div className='box'>
-          <div className='sunriseSunset'>
-            <label>Sunrise:</label> <br />
-            <p>{getTime(props.data.sys.sunrise)}</p>
-            <label>Sunset:</label> <br />
-            <p>{getTime(props.data.sys.sunset)}</p>
-          </div>
+          <label>SUNRISE</label> <br />
+          <p>{getTime(props.data.sys.sunrise)}</p>
+          <label>SUNSET</label> <br />
+          <p>{getTime(props.data.sys.sunset)}</p>
         </div>
         <div className='box'>
-          Wind:
-          <div className='wind'>
-            <p>{props.data.wind.deg}°</p>
-            <p>{Math.round(props.data.wind.speed)}km/h</p>
-          </div>
+          <label>WIND</label>
+          <p>{props.data.wind.deg}°</p>
+          <p>{Math.round(props.data.wind.speed)}km/h</p>
         </div>
         <div className='box'>
-          Feels like: <br />
-          <div className='centerLarge'>
-            <p>{Math.round(props.data.main.feels_like)}°C</p>
-          </div>
+          <label>FEELS LIKE</label>
+          <p>{Math.round(props.data.main.feels_like)}°C</p>
         </div>
         <div className='box'>
-          Humidity:
-          <div className='centerLarge'>
-            <p>{props.data.main.humidity}%</p>
-          </div>
+        <label>HUMIDITY</label>
+          <p>{props.data.main.humidity}%</p>
         </div>
         <div className='box'>
-          Visibility:
-          <div className='centerLarge'>
-            <p>{Math.round(props.data.visibility / 1000)}km</p>
-          </div>
+          <label>VISIBILITY</label>
+          <p>{Math.round(props.data.visibility / 1000)}km</p>
         </div>
         <div className='box'>
-          Pressure:
-          <div className='pressure'>
-            <p>{props.data.main.pressure}hPa</p>
-          </div>
+          <label>PRESSURE</label>
+          <p>{props.data.main.pressure}hPa</p>
         </div>
       </div>
     </div>
