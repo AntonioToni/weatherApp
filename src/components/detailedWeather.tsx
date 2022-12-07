@@ -7,9 +7,7 @@ import arrow from '../assets/windArrowOutlined.png';
 export function DetailedWeather(props: {
   data: Weather
 }) {
-  /*
-    To be additionally styled with special graphs for each box 
-  */
+
   function getTime(unix : number) {
     let x = new Date(unix * 1000);
     return(x.toLocaleTimeString().slice(0,5));
