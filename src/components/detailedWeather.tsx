@@ -1,6 +1,8 @@
 import react from 'react';
 import { Weather } from '../classes/Weather';
 import './detailedWeather.css';
+import base from '../assets/base.png';
+import arrow from '../assets/windArrowOutlined.png';
 
 export function DetailedWeather(props: {
   data: Weather
@@ -24,8 +26,18 @@ export function DetailedWeather(props: {
         </div>
         <div className='box'>
           <label>WIND</label>
-          <p>{props.data.wind.deg}°</p>
-          <p>{Math.round(props.data.wind.speed)}km/h</p>
+          <div className='windContainer'>
+            <div className='layer1'>
+              <img src={base} className='windCompass' />
+            </div>
+            <div className='layer2'>
+              <img src={arrow} style={{transform: 'rotate('+(props.data.wind.deg+90)+'deg)'}} className='windCompass' />
+            </div>
+            <div className='layer3'>
+              <p>{Math.round(props.data.wind.speed)}</p>
+              <p>km/h</p>
+            </div>
+          </div>
         </div>
         <div className='box'>
           <label>FEELS LIKE</label>

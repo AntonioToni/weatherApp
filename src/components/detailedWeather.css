@@ -24,6 +24,37 @@
   text-align: left;
 }
 
+.windContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  width: 148px;
+}
+
+.layer2 {
+  margin-left: -101.3%;
+}
+
+.layer3 {
+  text-align: center;
+  width: 100%;
+  margin-left: -100%;
+}
+
+.layer3 > p {
+  margin: 0;
+}
+
+.layer3 > p:nth-child(1) {
+  font-size: 2rem;
+}
+
+.windCompass {
+  width: 150px;
+  height: 150px;
+}
+
 @media (max-width:633px) {
   .row{
     width: 380px;
@@ -51,5 +82,14 @@
   }
   .box > p {
     margin: 10px 0 12px 0;
+  }
+  .windContainer {
+    width: 130px;
+    height: 100px;
+  }
+
+  .windCompass {
+    width: 130px;
+    height: 130px;
   }
 }
