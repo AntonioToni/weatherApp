@@ -1,6 +1,6 @@
 # weatherApp
 
-Website made in ReactJS with Typescript for displaying current weather & weather forecast
+Website made in ReactJS with Typescript for displaying current weather & weather forecast (TBA)
 
 ## Getting started
 
