@@ -1,5 +1,4 @@
 import './App.css'
-import Fab from '@mui/material/Fab';
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -7,6 +6,10 @@ import { Weather } from './classes/Weather';
 import env from './env.json';
 import { BasicWeather } from './components/basicWeather';
 import { DetailedWeather } from './components/detailedWeather';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 
 function App() {
   const [data, setData] = useState(new Weather);
@@ -36,6 +39,9 @@ function App() {
       setData(response.data)
       console.log(response.data)
     })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   useEffect(() => {
@@ -45,10 +51,24 @@ function App() {
 
   return (
     <>
+      <div>
+
+      </div>
       <div className='alignCenter'>
-        <Fab className='locateButton' onClick={getLocation}>
-          <LocationSearchingIcon/>
-        </Fab>
+        <Paper
+          component="form"
+          sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 250 }}
+        >
+          <IconButton onClick={getLocation} aria-label="menu">
+            <LocationSearchingIcon/>
+          </IconButton>
+          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search city"
+            inputProps={{ 'aria-label': 'search city' }}
+          />
+        </Paper>
         <BasicWeather data = {data}/>
         <DetailedWeather data = {data}/>
       </div>

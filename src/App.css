@@ -4,11 +4,6 @@
   padding: 2rem;
 }
 
-.locateButton{
-  display: flex;
-  align-self: flex-start;
-}
-
 .alignCenter{
   display: flex;
   flex-direction: column;
