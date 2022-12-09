@@ -24,20 +24,20 @@ export class Weather {
   public constructor() {
     this.name = "City";
     this.main = { 
-      temp : 0,
-      feels_like : 0,
-      temp_min : 0,
-      temp_max : 0,
-      pressure : 0,
-      humidity : 0
+      temp : 13,
+      feels_like : 8,
+      temp_min : 7,
+      temp_max : 15,
+      pressure : 1012,
+      humidity : 50
     };
-    this.visibility = 0;
+    this.visibility = 5000;
     this.weather = [{
       description : 'Overcast clouds'
     }]
     this.wind = {
-      speed : 0,
-      deg : 0
+      speed : 10,
+      deg : 33
     }
     this.sys = {
       sunrise : 0,
