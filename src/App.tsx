@@ -62,6 +62,9 @@ function App() {
       setLatLon(response.data[0].lat, response.data[0].lon);
       getWeatherInfo();
     })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   const handleSubmit = (event: any) => {
