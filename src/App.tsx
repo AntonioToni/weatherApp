@@ -13,18 +13,23 @@ import IconButton from '@mui/material/IconButton';
 
 function App() {
   const [data, setData] = useState(new Weather);
+  const [city, setCity] = useState('');
   let latitude = parseFloat(JSON.parse(localStorage.getItem("Latitude") || '0'));
   let longitude = parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0'));
+
+  function setLatLon(lat: number, lon: number){
+    localStorage.setItem("Latitude", JSON.stringify(lat));
+    localStorage.setItem("Longitude", JSON.stringify(lon));
+    latitude = lat;
+    longitude = lon;
+  }
 
   function getLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
       console.log("Latitude is : ", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
-      localStorage.setItem("Latitude", JSON.stringify(position.coords.latitude));
-      localStorage.setItem("Longitude", JSON.stringify(position.coords.longitude));
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
-      searchPosWeather();
+      setLatLon(position.coords.latitude, position.coords.longitude);
+      getWeatherInfo();
     });
   }
 
@@ -32,7 +37,7 @@ function App() {
     getLocation();
   }
 
-  const searchPosWeather = () => {
+  const getWeatherInfo = () => {
     let url= `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&id=524901&appid=${env.apiKey}&units=metric`
     console.log(url);
     axios.get(url).then((response) => {
@@ -46,8 +51,24 @@ function App() {
 
   useEffect(() => {
     console.log("Loading data...");
-    searchPosWeather();
+    getWeatherInfo();
   }, []);
+
+  const getCityPosition = () => {
+    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${env.apiKey}`
+    console.log(url);
+    axios.get(url).then((response) => {
+      console.log(response.data[0].lat, response.data[0].lon);
+      setLatLon(response.data[0].lat, response.data[0].lon);
+      getWeatherInfo();
+    })
+  }
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    console.log(city);
+    getCityPosition();
+  }
 
   return (
     <>
@@ -57,8 +78,9 @@ function App() {
       <div className='alignCenter'>
         <Paper
           component="form"
+          onSubmit={handleSubmit}
           sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 250 }}
-        >
+          >
           <IconButton onClick={getLocation} aria-label="menu">
             <LocationSearchingIcon/>
           </IconButton>
@@ -67,7 +89,8 @@ function App() {
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search city"
             inputProps={{ 'aria-label': 'search city' }}
-          />
+            onChange={event => setCity(event.target.value)}
+            />
         </Paper>
         <BasicWeather data = {data}/>
         <DetailedWeather data = {data}/>
