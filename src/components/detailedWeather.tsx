@@ -13,6 +13,11 @@ export function DetailedWeather(props: {
     return(x.toLocaleTimeString().slice(0,5));
   }
 
+  let dewPoint : number =  (props.data.main.temp - (14.55 + 0.114 * props.data.main.temp) * 
+  (1 - (0.01 * props.data.main.humidity)) - Math.pow(((2.5 + 0.007 * props.data.main.temp) * 
+  (1 - (0.01 * props.data.main.humidity))),3) - (15.9 + 0.117 * props.data.main.temp) * 
+  Math.pow((1 - (0.01 * props.data.main.humidity)), 14));
+
   return(
     <div className='detailedWeather'>
       <div className='row'>
@@ -44,6 +49,9 @@ export function DetailedWeather(props: {
         <div className='box'>
         <label>HUMIDITY</label>
           <p>{props.data.main.humidity}%</p>
+          <div className='dewPoint'>
+            <p>The dew point is {Math.round(dewPoint)}° right now.</p>
+          </div>
         </div>
         <div className='box'>
           <label>VISIBILITY</label>

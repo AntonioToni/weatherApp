@@ -1,10 +1,10 @@
-.row{
+.row {
   display: flex;
   flex-wrap: wrap;
   max-width: 570px;
 }
 
-.box{
+.box {
   width: 146px;
   height: 146px;
   background-color: rgba(0, 0, 0, 0.18);
@@ -53,6 +53,12 @@
 .windCompass {
   width: 150px;
   height: 150px;
+}
+
+.dewPoint {
+  align-items: flex-end;
+  display: flex;
+  font-size: 16px;
 }
 
 @media (max-width:633px) {
