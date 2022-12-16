@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 function App() {
   const [data, setData] = useState(new Weather);
   const [city, setCity] = useState('');
+  const [error, setError] = useState('');
   let latitude = parseFloat(JSON.parse(localStorage.getItem("Latitude") || '0'));
   let longitude = parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0'));
 
@@ -58,9 +59,15 @@ function App() {
     let url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${env.apiKey}`
     console.log(url);
     axios.get(url).then((response) => {
-      console.log(response.data[0].lat, response.data[0].lon);
-      setLatLon(response.data[0].lat, response.data[0].lon);
-      getWeatherInfo();
+      if (response.data[0] === undefined) {
+        setError("Invalid location")
+      }
+      else{
+        setError("");
+        console.log(response.data[0].lat, response.data[0].lon);
+        setLatLon(response.data[0].lat, response.data[0].lon);
+        getWeatherInfo();
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -75,9 +82,6 @@ function App() {
 
   return (
     <>
-      <div>
-
-      </div>
       <div className='alignCenter'>
         <Paper
           component="form"
@@ -95,6 +99,9 @@ function App() {
             onChange={event => setCity(event.target.value)}
             />
         </Paper>
+        {
+          error ? <div className='error'>{error}</div> : null
+        }
         <BasicWeather data = {data}/>
         <DetailedWeather data = {data}/>
       </div>
