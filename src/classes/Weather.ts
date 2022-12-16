@@ -10,7 +10,8 @@ export class Weather {
   }
   public visibility : number;
   public weather : Array<{
-    description : string
+    description : string,
+    icon : string
   }>
   public wind : {
     speed : number,
@@ -33,7 +34,8 @@ export class Weather {
     };
     this.visibility = 5000;
     this.weather = [{
-      description : 'Overcast clouds'
+      description : 'Overcast clouds',
+      icon : "02d"
     }]
     this.wind = {
       speed : 10,

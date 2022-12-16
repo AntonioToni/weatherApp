@@ -79,6 +79,9 @@ function App() {
     console.log(city);
     getCityPosition();
   }
+  
+  const favicon = document.getElementById("favicon") as HTMLAnchorElement
+  favicon!.href = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
 
   return (
     <>
