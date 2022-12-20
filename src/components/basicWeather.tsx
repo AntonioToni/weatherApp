@@ -4,7 +4,9 @@ import { Weather } from '../model/Weather';
 export function BasicWeather(props: {
   data : Weather | null}
   ) {
-  if (props.data) {
+  if (!props.data) {
+    return null;
+  };
   return(
     <div className='currentWeather'>
       <h1>{props.data.name}</h1>
@@ -13,11 +15,4 @@ export function BasicWeather(props: {
       <h2>H:{Math.round(props.data.main.temp)}°C L:{Math.round(props.data.main.temp_min)}°C</h2>
     </div>
   )
-} else{
-  return(
-    <>
-    
-    </>
-  )
-}
 }

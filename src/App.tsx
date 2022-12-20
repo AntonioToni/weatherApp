@@ -7,9 +7,7 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import { getIconUrl, searchLocation } from "./services/weatherService";
-import { readWeather } from './services/weatherService';
-import { readForecast } from './services/weatherService';
+import { getIconUrl, searchLocation, readWeather, readForecast } from "./services/weatherService";
 import { Weather } from './model/Weather';
 
 function App() {
