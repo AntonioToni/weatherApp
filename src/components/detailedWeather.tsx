@@ -1,25 +1,26 @@
 import react from 'react';
-import { Weather } from '../classes/Weather';
+import { Weather } from '../model/Weather';
 import './detailedWeather.css';
 import base from '../assets/base.png';
 import arrow from '../assets/windArrowOutlined.png';
 
 export function DetailedWeather(props: {
-  data: Weather
+  data : Weather | null
 }) {
 
   function getTime(unix : number) {
     let x = new Date(unix * 1000);
     return(x.toLocaleTimeString().slice(0,5));
   }
-
-  let dewPoint : number =  (props.data.main.temp - (14.55 + 0.114 * props.data.main.temp) * 
-  (1 - (0.01 * props.data.main.humidity)) - Math.pow(((2.5 + 0.007 * props.data.main.temp) * 
-  (1 - (0.01 * props.data.main.humidity))),3) - (15.9 + 0.117 * props.data.main.temp) * 
-  Math.pow((1 - (0.01 * props.data.main.humidity)), 14));
-
-  return(
-    <div className='detailedWeather'>
+  if (props.data) {
+    
+    let dewPoint : number =  (props.data.main.temp - (14.55 + 0.114 * props.data.main.temp) * 
+    (1 - (0.01 * props.data.main.humidity)) - Math.pow(((2.5 + 0.007 * props.data.main.temp) * 
+    (1 - (0.01 * props.data.main.humidity))),3) - (15.9 + 0.117 * props.data.main.temp) * 
+    Math.pow((1 - (0.01 * props.data.main.humidity)), 14));
+    
+    return(
+      <div className='detailedWeather'>
       <div className='row'>
         <div className='box'>
           <label>SUNRISE</label> <br />
@@ -64,4 +65,11 @@ export function DetailedWeather(props: {
       </div>
     </div>
   )
+} else {
+  return(
+    <>
+    </>
+  )
+}
+
 }
