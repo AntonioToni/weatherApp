@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import { getIconUrl, searchLocation, readWeather, readForecast } from "./services/weatherService";
 import { Weather } from './model/Weather';
+import { WeatherForecast } from './components/weatherForecast';
 
 function App() {
   const [city, setCity] = useState('');
@@ -98,6 +99,7 @@ function App() {
           error ? <div className='error'>{error}</div> : null
         }
         <BasicWeather data = {weather}/>
+        <WeatherForecast forecast={forecast}/>
         <DetailedWeather data = {weather}/>
       </div>
     </>
