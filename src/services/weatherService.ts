@@ -1,6 +1,6 @@
 import env from '../env.json';
 
-import {Coordinates, Weather, WeatherLocation} from '../model/Weather';
+import { Weather } from '../model/Weather';
 
 if (env.apiKey === undefined) {
   throw new Error('No Open Weather API Key defined')
@@ -35,4 +35,10 @@ export async function readForecast(latitude: number, longitude: number): Promise
 
 export function getIconUrl(code: string): string {
   return `http://openweathermap.org/img/wn/${code}.png`;
+}
+
+export function convertUnixTimeToTime(unix: number) {
+  let date = new Date(unix * 1000);
+  let time = date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+  return time;
 }
