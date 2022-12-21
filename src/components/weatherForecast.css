@@ -1,0 +1,28 @@
+.forecastContainer{
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.forecast{
+  display: block;
+}
+
+.forecastBox{
+  display: inline-block;
+  margin: 10px;
+  min-width: 60px;
+  min-height: 60px;
+}
+
+.weatherBox{
+  text-align: center;
+}
+
+.weatherBox > p{
+  margin: 0;
+}
+
+.weatherBox > img {
+  margin: -10px;
+}
