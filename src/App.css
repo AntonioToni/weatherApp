@@ -1,7 +1,7 @@
 #root {
   height: 100%;
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 0 0 0;
 }
 
 .alignCenter{
@@ -22,6 +22,6 @@
 
 @media (max-width:500px){
   #root{
-    padding: 10px;
+    padding: 16px 0 0 0;
   }
 }
