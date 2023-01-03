@@ -24,3 +24,7 @@ Prerequisite: Node Package Manager (npm) download can be found <a href="https://
 npm run build
 npm run preview
 ```
+
+## Screenshots:
+![image](https://user-images.githubusercontent.com/21955586/210296182-0d53944d-97f5-46d2-a54c-098639494085.png)
+![image](https://user-images.githubusercontent.com/21955586/210296297-532a376e-155a-4aef-9b0a-40ac5856fb97.png)
