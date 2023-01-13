@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import { getIconUrl, searchLocation, readWeather, readForecast } from "./services/weatherService";
+import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
 import { Weather } from './model/Weather';
 import { WeatherForecast } from './components/weatherForecast';
 
@@ -40,22 +40,21 @@ function App() {
     console.log(forecast);
   }
 
+  let getWeatherDataFromCity = async (term: string) => {
+    const [weather, forecast] = await Promise.all([
+      readWeatherQuery(term),
+      readForecastQuery(term)
+    ]);
+    setWeather(weather);
+    setForecast(forecast);
+  };
+
   function setLatLon(lat: number, lon: number){
     localStorage.setItem("Latitude", JSON.stringify(lat));
     localStorage.setItem("Longitude", JSON.stringify(lon));
     latitude = lat;
     longitude = lon;
   }
-
-  let getCityLocation = async (term: string) => {
-    const location = await searchLocation(term);
-    if (!location[0]) {
-      setError(`No location found called '${term}'`);
-    } else {
-      setLatLon(location[0].lat, location[0].lon);
-      getWeatherData(latitude, longitude);
-    }
-  };
 
   function getCurrentPosition() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -68,7 +67,7 @@ function App() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    getCityLocation(city);
+    getWeatherDataFromCity(city);
   }
   
   const favicon = document.getElementById("favicon") as HTMLAnchorElement
