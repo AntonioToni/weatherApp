@@ -28,7 +28,7 @@ export async function readWeather(latitude: number, longitude: number): Promise<
 export async function readWeatherQuery(query: string) {
   const current = await fetch(`${server}/weather?q=${query}&units=metric&${keyQuery}`)
 
-  if (current.status !== 200) throw new Error('Failed to read location data');
+  if (current.status === 404) return undefined;
 
   return await current.json();
 }
@@ -43,8 +43,8 @@ export async function readForecast(latitude: number, longitude: number): Promise
 
 export async function readForecastQuery(query: string) {
   const current = await fetch(`${server}/forecast?q=${query}&cnt=8&units=metric&${keyQuery}`)
-  console.log(`${server}/forecast?q=${query}&cnt=8&units=metric&${keyQuery}`)
-  if (current.status !== 200) throw new Error('Failed to read location data');
+  
+  if (current.status === 404) return undefined;
 
   return (await current.json()).list;
 }

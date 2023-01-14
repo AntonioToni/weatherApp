@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
 import { Weather } from './model/Weather';
 import { WeatherForecast } from './components/weatherForecast';
+import Alert from '@mui/material/Alert';
 
 function App() {
   const [city, setCity] = useState('');
@@ -36,8 +37,6 @@ function App() {
     ]);
     setWeather(weather);
     setForecast(forecast);
-    console.log(weather);
-    console.log(forecast);
   }
 
   let getWeatherDataFromCity = async (term: string) => {
@@ -45,8 +44,13 @@ function App() {
       readWeatherQuery(term),
       readForecastQuery(term)
     ]);
-    setWeather(weather);
-    setForecast(forecast);
+    if (!weather) {
+      setError("Test 404")
+    } else {
+      setError("");
+      setWeather(weather);
+      setForecast(forecast);
+    }
   };
 
   function setLatLon(lat: number, lon: number){
@@ -92,10 +96,14 @@ function App() {
             placeholder="Search city"
             inputProps={{ 'aria-label': 'search city' }}
             onChange={event => setCity(event.target.value)}
+            error = {true}
             />
         </Paper>
         {
-          error ? <div className='error'>{error}</div> : null
+          error ? 
+            <Alert severity="error" style={{marginTop: '5px'}}>
+              City not found.
+            </Alert> : null
         }
         <BasicWeather data = {weather}/>
         <WeatherForecast forecast={forecast}/>
