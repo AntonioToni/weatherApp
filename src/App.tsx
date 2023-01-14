@@ -1,15 +1,15 @@
 import './App.css'
-import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import { useEffect, useState } from 'react';
 import { BasicWeather } from './components/basicWeather';
 import { DetailedWeather } from './components/detailedWeather';
+import { Weather } from './model/Weather';
+import { WeatherForecast } from './components/weatherForecast';
+import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
+import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
-import { Weather } from './model/Weather';
-import { WeatherForecast } from './components/weatherForecast';
 import Alert from '@mui/material/Alert';
 
 function App() {
