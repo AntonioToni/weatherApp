@@ -3,7 +3,7 @@ import { Weather } from '../model/Weather';
 import './detailedWeather.css';
 import base from '../assets/base.png';
 import arrow from '../assets/windArrowOutlined.png';
-import { convertUnixTimeToTime } from '../services/weatherService';
+import { convertUnixTime } from '../services/weatherService';
 
 export function DetailedWeather(props: {
   data : Weather | null
@@ -22,9 +22,9 @@ export function DetailedWeather(props: {
       <div className='row'>
         <div className='box'>
           <label>SUNRISE</label> <br />
-          <p>{convertUnixTimeToTime(props.data.sys.sunrise)}</p>
+          <p>{convertUnixTime(props.data.sys.sunrise)}</p>
           <label>SUNSET</label> <br />
-          <p>{convertUnixTimeToTime(props.data.sys.sunset)}</p>
+          <p>{convertUnixTime(props.data.sys.sunset)}</p>
         </div>
         <div className='box'>
           <label>WIND</label>

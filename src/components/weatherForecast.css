@@ -1,7 +1,7 @@
 .forecastContainer {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  padding: 10px;
+  padding: 11px;
   margin: 0 0 10px 0;
 }
 
@@ -14,30 +14,24 @@
 .forecastBox {
   display: inline-block;
   margin: 10px;
-  min-width: 60px;
+  min-width: 46px;
   min-height: 60px;
-}
-
-.weatherBox {
   text-align: center;
 }
 
-.weatherBox > p {
+.forecastBox > p {
   margin: 0;
 }
 
-.weatherBox > img {
+.forecastBox > img {
   margin: -10px;
-}
-
-@media (max-width: 724px) {
-  .forecastContainer {
-    width: 530px;
-  }
 }
 
 @media (max-width: 597px) {
   .forecastContainer {
     width: 85vw;
+  }
+  .forecastBox {
+    min-width: 7.2vw;
   }
 }

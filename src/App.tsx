@@ -1,15 +1,16 @@
 import './App.css'
-import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import { useEffect, useState } from 'react';
 import { BasicWeather } from './components/basicWeather';
 import { DetailedWeather } from './components/detailedWeather';
+import { Weather } from './model/Weather';
+import { WeatherForecast } from './components/weatherForecast';
+import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
+import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
-import { Weather } from './model/Weather';
-import { WeatherForecast } from './components/weatherForecast';
+import Alert from '@mui/material/Alert';
 
 function App() {
   const [city, setCity] = useState('');
@@ -18,45 +19,9 @@ function App() {
   const [forecast, setForecast] = useState<Weather[] | null>(null);
   let latitude = parseFloat(JSON.parse(localStorage.getItem("Latitude") || '0'));
   let longitude = parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0'));
-
-  if (localStorage.getItem("Latitude") === null || localStorage.getItem("Longitude") === null) {
-    getCurrentPosition();
-  }
-
-  useEffect(() => {
-    (async function () {
-      getWeatherData(latitude, longitude);
-    })()
-  }, []);
-
-  async function getWeatherData(latitude: number, longitude: number){
-    const [weather, forecast] = await Promise.all([
-      readWeather(latitude, longitude),
-      readForecast(latitude, longitude)
-    ]);
-    setWeather(weather);
-    setForecast(forecast);
-    console.log(weather);
-    console.log(forecast);
-  }
-
-  let getWeatherDataFromCity = async (term: string) => {
-    const [weather, forecast] = await Promise.all([
-      readWeatherQuery(term),
-      readForecastQuery(term)
-    ]);
-    setWeather(weather);
-    setForecast(forecast);
-  };
-
-  function setLatLon(lat: number, lon: number){
-    localStorage.setItem("Latitude", JSON.stringify(lat));
-    localStorage.setItem("Longitude", JSON.stringify(lon));
-    latitude = lat;
-    longitude = lon;
-  }
-
-  function getCurrentPosition() {
+  
+  // getCurrentPosition used when user searches for weather by location
+  let getCurrentPosition = () => {
     navigator.geolocation.getCurrentPosition(function(position) {
       console.log("Latitude is : ", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
@@ -65,11 +30,57 @@ function App() {
     });
   }
 
+  if (localStorage.getItem("Latitude") === null || localStorage.getItem("Longitude") === null) {
+    getCurrentPosition();
+  }
+
+  // when page is freshly loaded it will search for data based on previous location
+  useEffect(() => {
+    (async function () {
+      getWeatherData(latitude, longitude);
+    })()
+  }, []);
+
+  // getWeatherData is used when searching for weather based on your location
+  let getWeatherData = async (latitude: number, longitude: number) => {
+    const [weather, forecast] = await Promise.all([
+      readWeather(latitude, longitude),
+      readForecast(latitude, longitude)
+    ]);
+    setWeather(weather);
+    setForecast(forecast);
+  }
+
+  // getWeatherDataFromCity is used when searching for weather data by city
+  let getWeatherDataFromCity = async (term: string) => {
+    const [weather, forecast] = await Promise.all([
+      readWeatherQuery(term),
+      readForecastQuery(term)
+    ]);
+    if (!weather) {
+      setError("Test 404")
+    } else {
+      setError("");
+      setWeather(weather);
+      setForecast(forecast);
+    }
+  };
+
+  // stores Lat & Lon into localstorage and assigns those values to variables latitude & longitude
+  let setLatLon = (lat: number, lon: number) => {
+    localStorage.setItem("Latitude", JSON.stringify(lat));
+    localStorage.setItem("Longitude", JSON.stringify(lon));
+    latitude = lat;
+    longitude = lon;
+  }
+
+  // used when user presses enter on searching by city
   const handleSubmit = (event: any) => {
     event.preventDefault();
     getWeatherDataFromCity(city);
   }
   
+  // sets current weather situation as favicon
   const favicon = document.getElementById("favicon") as HTMLAnchorElement
   if (weather) {
     favicon!.href = getIconUrl(weather?.weather[0].icon);
@@ -92,10 +103,14 @@ function App() {
             placeholder="Search city"
             inputProps={{ 'aria-label': 'search city' }}
             onChange={event => setCity(event.target.value)}
+            error = {true}
             />
         </Paper>
         {
-          error ? <div className='error'>{error}</div> : null
+          error ? 
+            <Alert severity="error" style={{marginTop: '5px'}}>
+              City not found.
+            </Alert> : null
         }
         <BasicWeather data = {weather}/>
         <WeatherForecast forecast={forecast}/>
