@@ -27,14 +27,11 @@
   margin: -10px;
 }
 
-@media (max-width: 724px) {
-  .forecastContainer {
-    width: 530px;
-  }
-}
-
 @media (max-width: 597px) {
   .forecastContainer {
     width: 85vw;
+  }
+  .forecastBox {
+    min-width: 7.2vw;
   }
 }
