@@ -9,14 +9,6 @@ if (env.apiKey === undefined) {
 const keyQuery = `appid=${env.apiKey}`
 const server = 'http://api.openweathermap.org/data/2.5';
 
-//export async function searchLocation(term: string) {
-//  const result = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${term}&limit=1&${keyQuery}`);
-//
-//  if (result.status === 404) return undefined;
-//  if (result.status !== 200) throw new Error('Failed to read location data');
-//  return await result.json();
-//}
-
 export async function readWeather(latitude: number, longitude: number): Promise<Weather> {
   const current = await fetch(`${server}/weather?lat=${latitude}&lon=${longitude}&${keyQuery}&units=metric`);
 
