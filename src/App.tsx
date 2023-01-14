@@ -19,18 +19,30 @@ function App() {
   const [forecast, setForecast] = useState<Weather[] | null>(null);
   let latitude = parseFloat(JSON.parse(localStorage.getItem("Latitude") || '0'));
   let longitude = parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0'));
+  
+  // getCurrentPosition used when user searches for weather by location
+  let getCurrentPosition = () => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log("Latitude is : ", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+      setLatLon(position.coords.latitude, position.coords.longitude);
+      getWeatherData(latitude, longitude);
+    });
+  }
 
   if (localStorage.getItem("Latitude") === null || localStorage.getItem("Longitude") === null) {
     getCurrentPosition();
   }
 
+  // when page is freshly loaded it will search for data based on previous location
   useEffect(() => {
     (async function () {
       getWeatherData(latitude, longitude);
     })()
   }, []);
 
-  async function getWeatherData(latitude: number, longitude: number){
+  // getWeatherData is used when searching for weather based on your location
+  let getWeatherData = async (latitude: number, longitude: number) => {
     const [weather, forecast] = await Promise.all([
       readWeather(latitude, longitude),
       readForecast(latitude, longitude)
@@ -39,6 +51,7 @@ function App() {
     setForecast(forecast);
   }
 
+  // getWeatherDataFromCity is used when searching for weather data by city
   let getWeatherDataFromCity = async (term: string) => {
     const [weather, forecast] = await Promise.all([
       readWeatherQuery(term),
@@ -53,27 +66,21 @@ function App() {
     }
   };
 
-  function setLatLon(lat: number, lon: number){
+  // stores Lat & Lon into localstorage and assigns those values to variables latitude & longitude
+  let setLatLon = (lat: number, lon: number) => {
     localStorage.setItem("Latitude", JSON.stringify(lat));
     localStorage.setItem("Longitude", JSON.stringify(lon));
     latitude = lat;
     longitude = lon;
   }
 
-  function getCurrentPosition() {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log("Latitude is : ", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
-      setLatLon(position.coords.latitude, position.coords.longitude);
-      getWeatherData(latitude, longitude);
-    });
-  }
-
+  // used when user presses enter on searching by city
   const handleSubmit = (event: any) => {
     event.preventDefault();
     getWeatherDataFromCity(city);
   }
   
+  // sets current weather situation as favicon
   const favicon = document.getElementById("favicon") as HTMLAnchorElement
   if (weather) {
     favicon!.href = getIconUrl(weather?.weather[0].icon);
