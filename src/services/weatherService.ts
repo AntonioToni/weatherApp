@@ -53,7 +53,7 @@ export function getIconUrl(code: string): string {
   return `http://openweathermap.org/img/wn/${code}.png`;
 }
 
-export function convertUnixTimeToTime(unix: number) {
+export function convertUnixTime(unix: number) {
   let date = new Date(unix * 1000);
   let time = date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
   return time;
