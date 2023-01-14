@@ -58,3 +58,9 @@ export function convertUnixTime(unix: number) {
   let time = date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
   return time;
 }
+
+export function convertUnixTimeToHours(unix: number) {
+  let date = new Date (unix * 1000);
+  let time = date.toLocaleTimeString([], {hour: '2-digit'})
+  return time
+}
