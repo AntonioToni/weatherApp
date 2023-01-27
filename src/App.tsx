@@ -6,11 +6,7 @@ import { Weather } from './model/Weather';
 import { WeatherForecast } from './components/weatherForecast';
 import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Alert from '@mui/material/Alert';
+import { Paper , InputBase, Divider, IconButton, Alert } from '@mui/material';
 
 function App() {
   const [city, setCity] = useState('');
