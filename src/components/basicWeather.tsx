@@ -9,7 +9,7 @@ export function BasicWeather(props: {
     return null;
   };
   return(
-    <Stack spacing={2} alignItems='center' sx={{marginBottom: 2}}>
+    <Stack spacing={1.2} alignItems='center' sx={{marginBottom: 1, marginTop: 1}}>
       <Typography variant='h2'>{props.data.name}</Typography>
       <Typography variant='h2'>{Math.round(props.data?.main.temp)}°C</Typography>
       <Typography variant='h4'>{props.data.weather[0].description.charAt(0).toUpperCase() + props.data.weather[0].description.slice(1)}</Typography>

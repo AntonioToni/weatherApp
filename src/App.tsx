@@ -88,7 +88,7 @@ function App() {
 
   return (
     <>
-      <Stack justifyContent='center' alignItems='center'>
+      <Stack justifyContent='center' alignItems='center' sx={{marginTop: 2}}>
         <Paper
           component="form"
           onSubmit={handleSubmit}
