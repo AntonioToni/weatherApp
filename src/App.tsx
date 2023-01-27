@@ -18,12 +18,29 @@ function App() {
   
   // getCurrentPosition used when user searches for weather by location
   let getCurrentPosition = () => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log("Latitude is : ", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
-      setLatLon(position.coords.latitude, position.coords.longitude);
-      getWeatherData(latitude, longitude);
-    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        console.log("Latitude is : ", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        setLatLon(position.coords.latitude, position.coords.longitude);
+        getWeatherData(latitude, longitude);
+      }, function showError(error) {
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            setError("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setError("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            setError("The request to get user location timed out.");
+            break;
+        }
+      }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.")
+    }
   }
 
   if (localStorage.getItem("Latitude") === null || localStorage.getItem("Longitude") === null) {
@@ -94,10 +111,13 @@ function App() {
           onSubmit={handleSubmit}
           sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 250 }}
           >
-          <IconButton onClick={getCurrentPosition} aria-label="menu">
-            <LocationSearchingIcon/>
-          </IconButton>
-          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          {navigator.geolocation ? 
+          <>
+            <IconButton onClick={getCurrentPosition} aria-label="menu">
+              <LocationSearchingIcon/>
+            </IconButton> 
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          </> : "" }
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search city"
