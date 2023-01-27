@@ -6,7 +6,7 @@ import { Weather } from './model/Weather';
 import { WeatherForecast } from './components/weatherForecast';
 import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
-import { Paper , InputBase, Divider, IconButton, Alert } from '@mui/material';
+import { Paper , InputBase, Divider, IconButton, Alert, Stack } from '@mui/material';
 
 function App() {
   const [city, setCity] = useState('');
@@ -84,7 +84,7 @@ function App() {
 
   return (
     <>
-      <div className='alignCenter'>
+      <Stack justifyContent='center' alignItems='center'>
         <Paper
           component="form"
           onSubmit={handleSubmit}
@@ -111,7 +111,7 @@ function App() {
         <BasicWeather data = {weather}/>
         <WeatherForecast forecast={forecast}/>
         <DetailedWeather data = {weather}/>
-      </div>
+      </Stack>
     </>
   )
 }
