@@ -39,12 +39,16 @@ function App() {
       }
       );
     } else {
-      setError("Geolocation is not supported by this browser.")
+      setError("Geolocation is not supported by this browser.");
     }
   }
-
+  // if no previous location is found prompt user for location
   if (localStorage.getItem("Latitude") === null || localStorage.getItem("Longitude") === null) {
     getCurrentPosition();
+  }
+
+  if (error !== "") {
+    setTimeout(function() {setError("")}, 5000);
   }
 
   // when page is freshly loaded it will search for data based on previous location
@@ -91,7 +95,7 @@ function App() {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (city === "") {
-      setError("Search field cannot be empty.")
+      setError("Search field cannot be empty.");
       return;
     }
     getWeatherDataFromCity(city);
