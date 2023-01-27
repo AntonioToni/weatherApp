@@ -4,18 +4,6 @@
   padding: 2rem 0 0 0;
 }
 
-.alignCenter{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.currentWeather{
-  text-align: center;
-}
-
 .error{
   color: rgb(221, 34, 34);
 }
