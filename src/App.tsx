@@ -54,7 +54,7 @@ function App() {
       readForecastQuery(term)
     ]);
     if (!weather) {
-      setError("Test 404")
+      setError("City not found")
     } else {
       setError("");
       setWeather(weather);
@@ -73,6 +73,10 @@ function App() {
   // used when user presses enter on searching by city
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    if (city === "") {
+      setError("Search field cannot be empty.")
+      return;
+    }
     getWeatherDataFromCity(city);
   }
   
@@ -105,7 +109,7 @@ function App() {
         {
           error ? 
             <Alert severity="error" style={{marginTop: '5px'}}>
-              City not found.
+              {error}
             </Alert> : null
         }
         <BasicWeather data = {weather}/>
