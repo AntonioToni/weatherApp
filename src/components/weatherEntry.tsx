@@ -1,13 +1,13 @@
 import React from "react";
 import { Weather } from "../model/Weather";
 import { convertUnixTimeToHours, getIconUrl } from "../services/weatherService";
-
+import { Typography } from "@mui/material";
 export function WeatherEntry(props:{weather : Weather}) {
   return(
     <>
-      <p>{convertUnixTimeToHours(props.weather.dt)}</p>
+      <Typography>{convertUnixTimeToHours(props.weather.dt)}</Typography>
       <img src={getIconUrl(props.weather.weather[0].icon)} alt="" />
-      <p>{Math.round(props.weather.main.temp)}°</p>
+      <Typography>{Math.round(props.weather.main.temp)}°</Typography>
     </>
   )
 }
