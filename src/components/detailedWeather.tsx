@@ -3,7 +3,7 @@ import { Weather } from '../model/Weather';
 import './detailedWeather.css';
 import base from '../assets/base.png';
 import arrow from '../assets/windArrowOutlined.png';
-import { convertUnixTime } from '../services/weatherService';
+import { convertUnixTime, getDewPoint } from '../services/weatherService';
 
 export function DetailedWeather(props: {
   data : Weather | null
@@ -12,10 +12,6 @@ export function DetailedWeather(props: {
   if (!props.data) {
     return null;
   }
-  let dewPoint : number =  (props.data.main.temp - (14.55 + 0.114 * props.data.main.temp) * 
-  (1 - (0.01 * props.data.main.humidity)) - Math.pow(((2.5 + 0.007 * props.data.main.temp) * 
-  (1 - (0.01 * props.data.main.humidity))),3) - (15.9 + 0.117 * props.data.main.temp) * 
-  Math.pow((1 - (0.01 * props.data.main.humidity)), 14));
   
   return(
     <div className='detailedWeather'>
@@ -49,7 +45,7 @@ export function DetailedWeather(props: {
         <label>HUMIDITY</label>
           <p>{props.data.main.humidity}%</p>
           <div className='dewPoint'>
-            <p>The dew point is {Math.round(dewPoint)}° right now.</p>
+            <p>The dew point is {Math.round(getDewPoint(props.data.main.temp, props.data.main.humidity))}° right now.</p>
           </div>
         </div>
         <div className='box'>
