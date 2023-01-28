@@ -2,7 +2,7 @@ import react from "react";
 import { Weather } from "../model/Weather";
 import { WeatherEntry } from "./weatherEntry";
 import './weatherForecast.css';
-import { Stack } from '@mui/material'
+import { Stack, Typography} from '@mui/material'
 
 export function WeatherForecast(props : {
   forecast : Weather[] | null;
@@ -13,7 +13,7 @@ export function WeatherForecast(props : {
   return(
     <>
       <div className="forecastContainer">
-        <label>Forecast</label>        
+        <Typography>Forecast</Typography>        
         <Stack direction='row' sx={{overflow: 'auto', whiteSpace: 'nowrap'}}>
           {props.forecast.map(timePoint =>
             <Stack key = {timePoint.dt} sx={{textAlign: 'center', margin: '8px'}}>
