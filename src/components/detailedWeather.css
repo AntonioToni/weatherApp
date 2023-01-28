@@ -11,6 +11,7 @@
   border-radius: 10px;
   padding: 12px;
   margin: 10px;
+  backdrop-filter: blur(6px);
 }
 
 .box > label {
@@ -30,6 +31,10 @@
   align-items: center;
   height: 120px;
   width: 148px;
+}
+
+.layer1 {
+  opacity: 0.5;
 }
 
 .layer2 {
