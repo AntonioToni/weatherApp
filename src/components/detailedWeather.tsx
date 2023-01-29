@@ -1,9 +1,10 @@
 import react from 'react';
 import { Weather } from '../model/Weather';
-import './detailedWeather.css';
 import base from '../assets/base.png';
 import arrow from '../assets/windArrowOutlined.png';
-import { convertUnixTime } from '../services/weatherService';
+import { convertUnixTime, getDewPoint } from '../services/weatherService';
+import { Box, Typography } from '@mui/material'
+import { Stack } from '@mui/system';
 
 export function DetailedWeather(props: {
   data : Weather | null
@@ -12,55 +13,110 @@ export function DetailedWeather(props: {
   if (!props.data) {
     return null;
   }
-  let dewPoint : number =  (props.data.main.temp - (14.55 + 0.114 * props.data.main.temp) * 
-  (1 - (0.01 * props.data.main.humidity)) - Math.pow(((2.5 + 0.007 * props.data.main.temp) * 
-  (1 - (0.01 * props.data.main.humidity))),3) - (15.9 + 0.117 * props.data.main.temp) * 
-  Math.pow((1 - (0.01 * props.data.main.humidity)), 14));
   
+  const boxStyle = {
+    width: '146px',
+    height: '146px',
+    backgroundColor: 'rgba(0, 0, 0, 0.18)',
+    borderRadius: '10px',
+    padding: '12px',
+    margin: '10px',
+    backdropFilter: 'blur(6px)',
+    '@media (max-width:399px)' : {
+      width: '130px',
+      height: '130px'
+    }
+  }
+
+  const windImgStyle = {
+    width: '150px',
+    height: '150px',
+    '@media (max-width:399px)' : {
+      width: '130px',
+      height: '130px'
+    }
+  }
+
   return(
-    <div className='detailedWeather'>
-      <div className='row'>
-        <div className='box'>
-          <label>SUNRISE</label> <br />
-          <p>{convertUnixTime(props.data.sys.sunrise)}</p>
-          <label>SUNSET</label> <br />
-          <p>{convertUnixTime(props.data.sys.sunset)}</p>
-        </div>
-        <div className='box'>
-          <label>WIND</label>
-          <div className='windContainer'>
-            <div className='layer1'>
-              <img src={base} className='windCompass' />
-            </div>
-            <div className='layer2'>
-              <img src={arrow} style={{transform: 'rotate('+(props.data.wind.deg+90)+'deg)'}} className='windCompass' />
-            </div>
-            <div className='layer3'>
-              <p>{Math.round(props.data.wind.speed)}</p>
-              <p>km/h</p>
-            </div>
-          </div>
-        </div>
-        <div className='box'>
-          <label>FEELS LIKE</label>
-          <p>{Math.round(props.data.main.feels_like)}°C</p>
-        </div>
-        <div className='box'>
-        <label>HUMIDITY</label>
-          <p>{props.data.main.humidity}%</p>
-          <div className='dewPoint'>
-            <p>The dew point is {Math.round(dewPoint)}° right now.</p>
-          </div>
-        </div>
-        <div className='box'>
-          <label>VISIBILITY</label>
-          <p>{Math.round(props.data.visibility / 1000)}km</p>
-        </div>
-        <div className='box'>
-          <label>PRESSURE</label>
-          <p>{props.data.main.pressure}hPa</p>
-        </div>
-      </div>
-    </div>
+    <>
+      <Stack direction='row' sx={{
+        maxWidth: '570px',
+        flexWrap: 'wrap',
+        '@media (max-width: 599px)' : {
+          width: '380px'
+        },
+        '@media (max-width: 399px)' : {
+          width: '348px'
+        }
+        }}>
+        <Box sx={boxStyle}>
+          <Typography>SUNRISE</Typography>
+          <Typography variant='h4'>{convertUnixTime(props.data.sys.sunrise)}</Typography>
+          <Typography sx={{
+            marginTop: 2, 
+            '@media (max-width:399px)' : {
+              marginTop: 1
+            }}}>SUNSET</Typography>
+          <Typography variant='h4'>{convertUnixTime(props.data.sys.sunset)}</Typography>
+        </Box>
+        <Box sx={boxStyle}>
+          <Typography>WIND</Typography>
+          <Stack direction='row' sx={{
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            height: '120px', 
+            width: '148px',
+            '@media (max-width: 399px)' : {
+              width: '130px',
+              height: '100px'
+            }}}>
+            <Stack sx={{
+              marginTop: '-5px', 
+              opacity: '0.5'
+              }}>
+              <img src={base} style={windImgStyle} />
+            </Stack>
+            <Stack sx={{
+              marginLeft: '-101.5%', 
+              marginTop: '-5px',
+              transform: 'rotate('+(props.data.wind.deg+90)+'deg)'
+              }}>
+              <img src={arrow} style={windImgStyle}/>
+            </Stack>
+            <Stack spacing={-0.6} sx={{
+              marginLeft: '-100%', 
+              width: '100%', 
+              textAlign: 'center', 
+              marginTop: '-10px'
+              }}>
+              <Typography variant='h4'>{Math.round(props.data.wind.speed)}</Typography>
+              <Typography>km/h</Typography>
+            </Stack>
+          </Stack>
+        </Box>
+        <Box sx={boxStyle}>
+          <Typography>FEELS LIKE</Typography>
+          <Typography variant='h4'>{Math.round(props.data.main.feels_like)}°C</Typography>
+        </Box>
+        <Box sx={boxStyle}>
+          <Typography>HUMIDITY</Typography>
+          <Typography variant='h4'>{props.data.main.humidity}%</Typography>
+          <Typography sx={{
+            marginTop: 4,
+            '@media (max-width:399px)' : {
+              marginTop: 3
+            }
+          }}>The dew point is {Math.round(getDewPoint(props.data.main.temp, props.data.main.humidity))}° right now.</Typography>
+        </Box>
+        <Box sx={boxStyle}>
+          <Typography>VISIBILITY</Typography>
+          <Typography variant='h4'>{Math.round(props.data.visibility / 1000)}km</Typography>
+        </Box>
+        <Box sx={boxStyle}>
+          <Typography>PRESSURE</Typography>
+          <Typography variant='h4'>{props.data.main.pressure}hPa</Typography>
+        </Box>
+      </Stack>
+    </>
   )
 }

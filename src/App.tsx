@@ -1,4 +1,3 @@
-import './App.css'
 import { useEffect, useState } from 'react';
 import { BasicWeather } from './components/basicWeather';
 import { DetailedWeather } from './components/detailedWeather';
@@ -6,11 +5,7 @@ import { Weather } from './model/Weather';
 import { WeatherForecast } from './components/weatherForecast';
 import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Alert from '@mui/material/Alert';
+import { Paper , InputBase, Divider, IconButton, Alert, Stack } from '@mui/material';
 
 function App() {
   const [city, setCity] = useState('');
@@ -22,16 +17,38 @@ function App() {
   
   // getCurrentPosition used when user searches for weather by location
   let getCurrentPosition = () => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log("Latitude is : ", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
-      setLatLon(position.coords.latitude, position.coords.longitude);
-      getWeatherData(latitude, longitude);
-    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        console.log("Latitude is : ", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        setLatLon(position.coords.latitude, position.coords.longitude);
+        getWeatherData(latitude, longitude);
+      }, 
+      function showError(error) {
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            setError("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            setError("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            setError("The request to get user location timed out.");
+            break;
+        }
+      }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
   }
-
+  // if no previous location is found prompt user for location
   if (localStorage.getItem("Latitude") === null || localStorage.getItem("Longitude") === null) {
     getCurrentPosition();
+  }
+
+  if (error !== "") {
+    setTimeout(function() {setError("")}, 5000);
   }
 
   // when page is freshly loaded it will search for data based on previous location
@@ -58,12 +75,13 @@ function App() {
       readForecastQuery(term)
     ]);
     if (!weather) {
-      setError("Test 404")
+      setError("City not found")
     } else {
       setError("");
       setWeather(weather);
       setForecast(forecast);
     }
+    setCity("");
   };
 
   // stores Lat & Lon into localstorage and assigns those values to variables latitude & longitude
@@ -77,6 +95,10 @@ function App() {
   // used when user presses enter on searching by city
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    if (city === "") {
+      setError("Search field cannot be empty.");
+      return;
+    }
     getWeatherDataFromCity(city);
   }
   
@@ -88,34 +110,37 @@ function App() {
 
   return (
     <>
-      <div className='alignCenter'>
+      <Stack justifyContent='center' alignItems='center' sx={{marginTop: 2}}>
         <Paper
           component="form"
           onSubmit={handleSubmit}
           sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 250 }}
           >
-          <IconButton onClick={getCurrentPosition} aria-label="menu">
-            <LocationSearchingIcon/>
-          </IconButton>
-          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          {navigator.geolocation ? //hide locateButton if navigator.geolocation is unavailable
+          <>
+            <IconButton onClick={getCurrentPosition} aria-label="menu">
+              <LocationSearchingIcon/>
+            </IconButton> 
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          </> : "" }
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search city"
             inputProps={{ 'aria-label': 'search city' }}
             onChange={event => setCity(event.target.value)}
-            error = {true}
+            value = {city}
             />
         </Paper>
         {
           error ? 
             <Alert severity="error" style={{marginTop: '5px'}}>
-              City not found.
+              {error}
             </Alert> : null
         }
         <BasicWeather data = {weather}/>
         <WeatherForecast forecast={forecast}/>
         <DetailedWeather data = {weather}/>
-      </div>
+      </Stack>
     </>
   )
 }

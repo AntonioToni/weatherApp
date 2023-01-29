@@ -56,3 +56,12 @@ export function convertUnixTimeToHours(unix: number) {
   let time = date.toLocaleTimeString([], {hour: '2-digit'})
   return time
 }
+
+export function getDewPoint(temp: number, humidity: number) {
+  return (
+    (temp - (14.55 + 0.114 * temp) * 
+    (1 - (0.01 * humidity)) - Math.pow(((2.5 + 0.007 * temp) * 
+    (1 - (0.01 * humidity))),3) - (15.9 + 0.117 * temp) * 
+    Math.pow((1 - (0.01 * humidity)), 14))
+  )
+}
