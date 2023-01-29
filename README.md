@@ -26,5 +26,5 @@ npm run preview
 ```
 
 ## Screenshots:
-![image](https://user-images.githubusercontent.com/21955586/212500994-bd4fe7c8-c2e3-4ac2-b579-ff930e4a5028.png)
-![image](https://user-images.githubusercontent.com/21955586/212501025-21261f2c-82b2-4710-a1f8-82b08d144db0.png)
+![image](https://user-images.githubusercontent.com/21955586/215346034-908d7b48-4500-4daf-8c0e-ae4f25402aa8.png)
+![image](https://user-images.githubusercontent.com/21955586/215346495-56783454-cb99-4b29-8bc9-13923db043f2.png)
