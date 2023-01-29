@@ -23,7 +23,8 @@ function App() {
         console.log("Longitude is :", position.coords.longitude);
         setLatLon(position.coords.latitude, position.coords.longitude);
         getWeatherData(latitude, longitude);
-      }, function showError(error) {
+      }, 
+      function showError(error) {
         switch(error.code) {
           case error.PERMISSION_DENIED:
             setError("User denied the request for Geolocation.");
@@ -115,7 +116,7 @@ function App() {
           onSubmit={handleSubmit}
           sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 250 }}
           >
-          {navigator.geolocation ? 
+          {navigator.geolocation ? //hide locateButton if navigator.geolocation is unavailable
           <>
             <IconButton onClick={getCurrentPosition} aria-label="menu">
               <LocationSearchingIcon/>
