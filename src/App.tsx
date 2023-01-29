@@ -1,4 +1,3 @@
-import './App.css'
 import { useEffect, useState } from 'react';
 import { BasicWeather } from './components/basicWeather';
 import { DetailedWeather } from './components/detailedWeather';
