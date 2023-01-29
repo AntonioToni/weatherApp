@@ -22,16 +22,7 @@ export function DetailedWeather(props: {
     padding: '12px',
     margin: '10px',
     backdropFilter: 'blur(6px)',
-    '@media (max-width:399px)' : {
-      width: '130px',
-      height: '130px'
-    }
-  }
-
-  const windImgStyle = {
-    width: '150px',
-    height: '150px',
-    '@media (max-width:399px)' : {
+    '@media (max-width: 399px)' : {
       width: '130px',
       height: '130px'
     }
@@ -74,14 +65,14 @@ export function DetailedWeather(props: {
               marginTop: '-5px', 
               opacity: '0.5'
               }}>
-              <img src={base} style={windImgStyle} />
+              <img src={base} className="windImgStyle" />
             </Stack>
             <Stack sx={{
               marginLeft: '-101.5%', 
               marginTop: '-5px',
               transform: 'rotate('+(props.data.wind.deg+90)+'deg)'
               }}>
-              <img src={arrow} style={windImgStyle}/>
+              <img src={arrow} className="windImgStyle" />
             </Stack>
             <Stack spacing={-0.6} sx={{
               marginLeft: '-100%', 
