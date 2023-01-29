@@ -6,7 +6,7 @@ export function WeatherEntry(props:{weather : Weather}) {
   return(
     <>
       <Typography>{convertUnixTimeToHours(props.weather.dt)}</Typography>
-      <img src={getIconUrl(props.weather.weather[0].icon)} alt="" />
+      <img src={getIconUrl(props.weather.weather[0].icon)} alt="weatherIcon" style={{margin: '-6px 0 -3px'}} />
       <Typography>{Math.round(props.weather.main.temp)}°</Typography>
     </>
   )
