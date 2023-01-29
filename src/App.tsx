@@ -81,6 +81,7 @@ function App() {
       setWeather(weather);
       setForecast(forecast);
     }
+    setCity("");
   };
 
   // stores Lat & Lon into localstorage and assigns those values to variables latitude & longitude
@@ -127,7 +128,7 @@ function App() {
             placeholder="Search city"
             inputProps={{ 'aria-label': 'search city' }}
             onChange={event => setCity(event.target.value)}
-            error = {true}
+            value = {city}
             />
         </Paper>
         {
