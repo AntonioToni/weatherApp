@@ -52,33 +52,32 @@ export function DetailedWeather(props: {
         </Box>
         <Box sx={boxStyle}>
           <Typography>WIND</Typography>
-          <Stack direction='row' sx={{
+          <Stack sx={{
             justifyContent: 'center', 
             alignItems: 'center', 
-            height: '120px', 
+            height: '114px',
             width: '148px',
             '@media (max-width: 399px)' : {
               width: '130px',
               height: '100px'
             }}}>
             <Stack sx={{
-              marginTop: '-5px', 
+              position: 'absolute',
+              width: 'inherit',
               opacity: '0.5'
               }}>
-              <img src={base} className="windImgStyle" />
+              <img src={base} />
             </Stack>
             <Stack sx={{
-              marginLeft: '-101.5%', 
-              marginTop: '-5px',
+              position: 'absolute',
+              width: 'inherit',
               transform: 'rotate('+(props.data.wind.deg+90)+'deg)'
               }}>
-              <img src={arrow} className="windImgStyle" />
+              <img src={arrow} />
             </Stack>
             <Stack spacing={-0.6} sx={{
-              marginLeft: '-100%', 
-              width: '100%', 
-              textAlign: 'center', 
-              marginTop: '-10px'
+              position: 'absolute',
+              textAlign: 'center',
               }}>
               <Typography variant='h4'>{Math.round(props.data.wind.speed)}</Typography>
               <Typography>km/h</Typography>
