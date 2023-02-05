@@ -1,6 +1,6 @@
 import env from '../env.json';
 
-import { Weather } from '../model/Weather';
+import { IWeather } from '../model/Weather';
 
 if (env.apiKey === undefined) {
   throw new Error('No Open Weather API Key defined')
@@ -9,7 +9,7 @@ if (env.apiKey === undefined) {
 const keyQuery = `appid=${env.apiKey}`
 const server = 'http://api.openweathermap.org/data/2.5';
 
-export async function readWeather(latitude: number, longitude: number): Promise<Weather> {
+export async function readWeather(latitude: number, longitude: number): Promise<IWeather> {
   const current = await fetch(`${server}/weather?lat=${latitude}&lon=${longitude}&${keyQuery}&units=metric`);
 
   if (current.status !== 200) throw new Error('Failed to read location data');
@@ -25,7 +25,7 @@ export async function readWeatherQuery(query: string) {
   return await current.json();
 }
 
-export async function readForecast(latitude: number, longitude: number): Promise<Weather[]> {
+export async function readForecast(latitude: number, longitude: number): Promise<IWeather[]> {
   const forecast = await fetch(`${server}/forecast?lat=${latitude}&lon=${longitude}&${keyQuery}&units=metric&cnt=8`);
 
   if (forecast.status !== 200) throw new Error('Failed to read location data');

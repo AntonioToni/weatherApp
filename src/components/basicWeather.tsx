@@ -1,9 +1,9 @@
 import { Stack } from '@mui/system';
 import react from 'react';
-import { Weather } from '../model/Weather';
+import { IWeather } from '../model/Weather';
 import { Typography } from '@mui/material';
 export function BasicWeather(props: {
-  data : Weather | null}
+  data : IWeather | null}
   ) {
   if (!props.data) {
     return null;

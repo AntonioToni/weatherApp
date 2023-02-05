@@ -1,8 +1,8 @@
 import React from "react";
-import { Weather } from "../model/Weather";
+import { IWeather } from "../model/Weather";
 import { convertUnixTimeToHours, getIconUrl } from "../services/weatherService";
 import { Typography } from "@mui/material";
-export function WeatherEntry(props:{weather : Weather}) {
+export function WeatherEntry(props:{weather : IWeather}) {
   return(
     <>
       <Typography>{convertUnixTimeToHours(props.weather.dt)}</Typography>

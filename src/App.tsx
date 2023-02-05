@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BasicWeather } from './components/basicWeather';
 import { DetailedWeather } from './components/detailedWeather';
-import { Weather } from './model/Weather';
+import { IWeather } from './model/Weather';
 import { WeatherForecast } from './components/weatherForecast';
 import { getIconUrl, readWeather, readForecast, readWeatherQuery, readForecastQuery } from "./services/weatherService";
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
@@ -10,8 +10,8 @@ import { Paper , InputBase, Divider, IconButton, Alert, Stack } from '@mui/mater
 function App() {
   const [city, setCity] = useState('');
   const [error, setError] = useState('');
-  const [weather, setWeather] = useState<Weather | null>(null);
-  const [forecast, setForecast] = useState<Weather[] | null>(null);
+  const [weather, setWeather] = useState<IWeather | null>(null);
+  const [forecast, setForecast] = useState<IWeather[] | null>(null);
   let latitude = parseFloat(JSON.parse(localStorage.getItem("Latitude") || '0'));
   let longitude = parseFloat(JSON.parse(localStorage.getItem("Longitude") || '0'));
   
