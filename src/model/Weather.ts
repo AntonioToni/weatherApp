@@ -1,22 +1,22 @@
-export interface Coordinates {
+export interface ICoordinates {
   lon: number;
   lat: number;
 }
 
-export interface WeatherLocation {
-  coord: Coordinates;
+export interface IWeatherLocation {
+  coord: ICoordinates;
   id: number;
   name: string;
 }
 
-export interface WeatherConditions {
+export interface IWeatherConditions {
   id: number;
   main: string;
   description: string;
   icon: string;
 }
 
-export interface MainWeatherData {
+export interface IMainWeatherData {
   temp: number;
   feels_like: number;
   temp_min: number;
@@ -25,12 +25,12 @@ export interface MainWeatherData {
   humidity: number;
 }
 
-export interface WindWeatherData {
+export interface IWindWeatherData {
   speed: number;
   deg: number;
 }
 
-export interface sysWeatherData {
+export interface IsysWeatherData {
   type: number;
   id: number;
   country: string;
@@ -38,12 +38,12 @@ export interface sysWeatherData {
   sunset: number;
 }
 
-export interface Weather {
-  weather: WeatherConditions[];
-  main: MainWeatherData;
+export interface IWeather {
+  weather: IWeatherConditions[];
+  main: IMainWeatherData;
   dt: number;
   name: string;
   visibility: number;
-  wind: WindWeatherData;
-  sys: sysWeatherData;
+  wind: IWindWeatherData;
+  sys: IsysWeatherData;
 }

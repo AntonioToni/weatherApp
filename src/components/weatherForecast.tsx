@@ -1,10 +1,10 @@
 import react from "react";
-import { Weather } from "../model/Weather";
+import { IWeather } from "../model/Weather";
 import { WeatherEntry } from "./weatherEntry";
 import { Stack, Typography, Box} from '@mui/material'
 
 export function WeatherForecast(props : {
-  forecast : Weather[] | null;
+  forecast : IWeather[] | null;
 }) {
 
   if (!props.forecast) {

@@ -1,5 +1,5 @@
 import react from 'react';
-import { Weather } from '../model/Weather';
+import { IWeather } from '../model/Weather';
 import base from '../assets/base.png';
 import arrow from '../assets/windArrowOutlined.png';
 import { convertUnixTime, getDewPoint } from '../services/weatherService';
@@ -7,7 +7,7 @@ import { Box, Typography } from '@mui/material'
 import { Stack } from '@mui/system';
 
 export function DetailedWeather(props: {
-  data : Weather | null
+  data : IWeather | null
 }) {
 
   if (!props.data) {
@@ -25,6 +25,17 @@ export function DetailedWeather(props: {
     '@media (max-width: 399px)' : {
       width: '130px',
       height: '130px'
+    }
+  }
+
+  const windContainer = {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    height: '114px',
+    width: '148px',
+    '@media (max-width: 399px)' : {
+      width: '130px',
+      height: '100px'
     }
   }
 
@@ -52,15 +63,7 @@ export function DetailedWeather(props: {
         </Box>
         <Box sx={boxStyle}>
           <Typography>WIND</Typography>
-          <Stack sx={{
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: '114px',
-            width: '148px',
-            '@media (max-width: 399px)' : {
-              width: '130px',
-              height: '100px'
-            }}}>
+          <Stack sx={windContainer}>
             <Stack sx={{
               position: 'absolute',
               width: 'inherit',
