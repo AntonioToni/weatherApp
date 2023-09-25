@@ -27,4 +27,5 @@ npm run preview
 
 ## Screenshots:
 ![image](https://user-images.githubusercontent.com/21955586/215346034-908d7b48-4500-4daf-8c0e-ae4f25402aa8.png)
-![image](https://user-images.githubusercontent.com/21955586/215346495-56783454-cb99-4b29-8bc9-13923db043f2.png)
+![image](https://github.com/AntonioToni/weatherApp/assets/21955586/f4e49d1c-3a01-4f55-917c-54dc64cd04e8)
+
