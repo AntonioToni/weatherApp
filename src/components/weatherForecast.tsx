@@ -12,11 +12,13 @@ export function WeatherForecast(props : {
   }
 
   const forecastContainer = {
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
     padding: '11px',
-    borderRadius: '10px',
     margin: '0 0 10px 0',
-    backdropFilter: 'blur(6px)',
+    backdropFilter: 'blur( 5px )',
+    webkitBackdropFilter: 'blur( 5px )',
+    borderRadius: '10px',
+    border: '1px solid rgba( 255, 255, 255, 0.18 )',
+    boxShadow: '0 8px 32px rgba( 0, 0, 0, 0.37 )',
     '@media (max-width: 600px)' : {
       width: '85vw'
     }

@@ -4,7 +4,7 @@ import base from '../assets/base.png';
 import arrow from '../assets/windArrowOutlined.png';
 import { convertUnixTime, getDewPoint } from '../services/weatherService';
 import { Box, Typography } from '@mui/material'
-import { Stack } from '@mui/system';
+import { borderRadius, Stack } from '@mui/system';
 
 export function DetailedWeather(props: {
   data : IWeather | null
@@ -15,16 +15,18 @@ export function DetailedWeather(props: {
   }
   
   const boxStyle = {
-    width: '146px',
-    height: '146px',
-    backgroundColor: 'rgba(0, 0, 0, 0.18)',
-    borderRadius: '10px',
+    width: '144px',
+    height: '144px',
     padding: '12px',
     margin: '10px',
-    backdropFilter: 'blur(6px)',
+    backdropFilter: 'blur( 5px )',
+    webkitBackdropFilter: 'blur( 5px )',
+    borderRadius: '10px',
+    border: '1px solid rgba( 255, 255, 255, 0.18 )',
+    boxShadow: '0 8px 32px rgba( 0, 0, 0, 0.37 )',
     '@media (max-width: 399px)' : {
-      width: '130px',
-      height: '130px'
+      width: '128px',
+      height: '128px'
     }
   }
 
