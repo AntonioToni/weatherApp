@@ -20,3 +20,14 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+body::before {
+  content: '';
+  position: fixed; /* Use fixed to cover entire viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Adjust the alpha for desired darkness */
+  z-index: -1; /* Behind all other content */
+}
