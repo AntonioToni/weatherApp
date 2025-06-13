@@ -47,13 +47,13 @@ export function getIconUrl(code: string): string {
 
 export function convertUnixTime(unix: number) {
   let date = new Date(unix * 1000);
-  let time = date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})
+  let time = date.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: false});
   return time;
 }
 
 export function convertUnixTimeToHours(unix: number) {
   let date = new Date (unix * 1000);
-  let time = date.toLocaleTimeString([], {hour: '2-digit'})
+  let time = date.toLocaleTimeString([], {hour: '2-digit', hour12: false});
   return time
 }
 
